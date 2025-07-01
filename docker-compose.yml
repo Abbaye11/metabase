@@ -1,10 +1,14 @@
+volumes:
+  metabase_data:
+    driver: local
+
 services:
   metabase:
     image: metabase/metabase:latest
     container_name: metabase
     hostname: metabase
     volumes:
-      - /dev/urandom:/dev/random:ro
+      - metabase_data:/dev/random
     ports:
       - 3000:3000
     environment:
@@ -15,7 +19,7 @@ services:
       MB_DB_PASS: mysecretpassword
       MB_DB_HOST: postgres
     networks:
-      - metanet1
+      - abbaye11
     healthcheck:
       test: curl --fail -I http://localhost:3000/api/health || exit 1
       interval: 15s
@@ -30,7 +34,9 @@ services:
       POSTGRES_DB: metabaseappdb
       POSTGRES_PASSWORD: mysecretpassword
     networks:
-      - metanet1
+      - abbaye11
+
 networks:
-  metanet1:
-    driver: bridge
+  abbaye11:
+    name: abbaye11
+    external: true
