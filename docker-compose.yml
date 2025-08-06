@@ -8,6 +8,8 @@ services:
   metabase:
     image: metabase/metabase:latest
     container_name: metabase
+    depends_on:
+      - postgres
     hostname: metabase
     volumes:
       - metabase-data:/dev/random
