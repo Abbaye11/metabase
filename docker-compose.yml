@@ -1,6 +1,8 @@
 volumes:
   postgres-data:
     driver: local
+  metabase-data:
+    driver: local
 
 services:
   metabase:
@@ -8,7 +10,7 @@ services:
     container_name: metabase
     hostname: metabase
     volumes:
-      - metabase_data:/dev/random
+      - metabase-data:/dev/random
     ports:
       - 3000:3000
     environment:
